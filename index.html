@@ -42,6 +42,7 @@
   .brand img { width: 32px; height: 32px; border-radius: 8px; }
   .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 10px; background: var(--hi); color: #fff; font-weight: 800; font-size: 15px; text-decoration: none; transition: background .15s, transform .15s; }
   .btn:hover { background: var(--hi-2); transform: translateY(-1px); }
+  .btn .gc { flex: none; }
   .btn.small { padding: 8px 16px; font-size: 14px; }
   .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--text); }
   .btn.ghost:hover { background: rgba(255, 255, 255, 0.06); }
@@ -110,11 +111,12 @@
 <link rel="stylesheet" href="demo.css">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="chrome" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#fff"/><g transform="translate(12 12) scale(.86) translate(-12 -12)"><path fill="#EA4335" d="M12 12L22.39 6A12 12 0 0 0 1.61 6Z"/><path fill="#34A853" d="M12 12L1.61 6A12 12 0 0 0 12 24Z"/><path fill="#FBBC04" d="M12 12L12 24A12 12 0 0 0 22.39 6Z"/><circle cx="12" cy="12" r="5.4" fill="#fff"/><circle cx="12" cy="12" r="4.1" fill="#4285F4"/></g></symbol></svg>
 
 <header>
   <div class="wrap bar">
     <a class="brand" href="#top"><img src="img/icon.png" alt="">Focus for YouTube</a>
-    <a class="btn small" href="#get" data-store>Add to Chrome</a>
+    <a class="btn small" href="#get" data-store><svg class="gc" width="20" height="20" aria-hidden="true"><use href="#chrome"/></svg>Add to Chrome</a>
   </div>
 </header>
 
@@ -125,7 +127,7 @@
       <h1>Hide one thing.<br><em>Or the whole block.</em></h1>
       <p class="lede">Hide Shorts and distractions, block channels, or <b>allow only the channels you pick</b>. Everything stays in your browser.</p>
       <div class="cta">
-        <a class="btn" href="#get" data-store>Add to Chrome</a>
+        <a class="btn" href="#get" data-store><svg class="gc" width="20" height="20" aria-hidden="true"><use href="#chrome"/></svg>Add to Chrome</a>
         <a class="btn ghost" href="#demo">See what it hides</a>
       </div>
       <div class="chips">
@@ -275,7 +277,7 @@
     <div class="wrap">
       <h2>Take your YouTube back.</h2>
       <p class="sub">Free to install. Two clicks to set up.</p>
-      <div class="cta"><a class="btn" href="#get" data-store>Add to Chrome</a></div>
+      <div class="cta"><a class="btn" href="#get" data-store><svg class="gc" width="20" height="20" aria-hidden="true"><use href="#chrome"/></svg>Add to Chrome</a></div>
     </div>
   </section>
 </main>
