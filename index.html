@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Focus for YouTube: Shorts &amp; Channel Blocker</title>
+<meta name="description" content="Hide Shorts and distractions on YouTube, block channels, or allow only the channels you pick. No account, no analytics, everything stays in your browser.">
+<meta property="og:title" content="Focus for YouTube: Shorts &amp; Channel Blocker">
+<meta property="og:description" content="Hide Shorts and distractions on YouTube, block channels, or allow only the channels you pick.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f2233;
+    --ink-2: #14293c;
+    --line: rgba(255, 255, 255, 0.12);
+    --text: #f6f8fa;
+    --muted: #a9bccb;
+    --hi: #f2262d;
+    --hi-2: #ff4b51;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Manrope', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* top bar */
+  header { position: sticky; top: 0; z-index: 5; background: rgba(15, 34, 51, 0.88); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; }
+  .brand img { width: 32px; height: 32px; border-radius: 8px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 10px; background: var(--hi); color: #fff; font-weight: 800; font-size: 15px; text-decoration: none; transition: background .15s, transform .15s; }
+  .btn:hover { background: var(--hi-2); transform: translateY(-1px); }
+  .btn.small { padding: 8px 16px; font-size: 14px; }
+  .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--text); }
+  .btn.ghost:hover { background: rgba(255, 255, 255, 0.06); }
+
+  /* hero */
+  .hero { padding-top: 72px; padding-bottom: 40px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center; }
+  .badge { display: inline-block; padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(242, 38, 45, 0.45); background: rgba(242, 38, 45, 0.12); color: #ff8a8e; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  h1 { margin-top: 18px; font-size: clamp(40px, 6.4vw, 68px); line-height: 1.02; font-weight: 800; letter-spacing: -0.03em; }
+  h1 em { font-style: normal; color: var(--hi); }
+  .lede { margin-top: 22px; max-width: 480px; font-size: 19px; color: var(--muted); }
+  .lede b { color: var(--text); font-weight: 600; }
+  .cta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .chips { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); color: var(--muted); font-size: 13px; font-weight: 600; }
+  .shot { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #fff; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45); }
+  .shot img { display: block; width: 100%; height: auto; }
+
+  /* sections */
+  section { padding-top: 72px; padding-bottom: 72px; }
+  .eyebrow { color: var(--hi); font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  h2 { margin-top: 10px; font-size: clamp(30px, 4.4vw, 46px); line-height: 1.08; font-weight: 800; letter-spacing: -0.025em; }
+  .sub { margin-top: 14px; max-width: 620px; color: var(--muted); font-size: 18px; }
+
+  .grid { margin-top: 36px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { padding: 24px; border-radius: 16px; border: 1px solid var(--line); background: var(--ink-2); }
+  .card h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.01em; }
+  .card p { margin-top: 8px; color: var(--muted); font-size: 15.5px; }
+  .card ul { margin: 10px 0 0 18px; color: var(--muted); font-size: 15px; }
+  .card li { margin: 4px 0; }
+  .tags { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { padding: 3px 10px; border-radius: 6px; background: rgba(242, 38, 45, 0.14); color: #ff9a9e; font-size: 12px; font-weight: 700; }
+
+  .gallery { margin-top: 36px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .gallery figure { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+  .gallery img { display: block; width: 100%; height: auto; }
+
+  .band { background: var(--ink-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .privacy { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .checks { list-style: none; display: grid; gap: 12px; }
+  .checks li { padding: 14px 16px 14px 46px; position: relative; border-radius: 12px; border: 1px solid var(--line); background: var(--ink); font-size: 16px; }
+  .checks li::before { content: ''; position: absolute; left: 16px; top: 18px; width: 18px; height: 18px; border-radius: 50%; background: var(--hi) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.5l2.5 2.5L13 6.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat; }
+
+  .know { margin-top: 28px; display: grid; gap: 12px; max-width: 760px; }
+  .know div { padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line); background: var(--ink-2); color: var(--muted); font-size: 15.5px; }
+  .know b { color: var(--text); }
+
+  .final { text-align: center; }
+  .final .sub { margin-left: auto; margin-right: auto; }
+  .final .cta { justify-content: center; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+  .foot { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; justify-content: space-between; }
+  .foot nav { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  .foot a { text-decoration: none; }
+  .foot a:hover { color: var(--text); }
+  .legal { margin-top: 18px; font-size: 12.5px; opacity: .8; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 40px; }
+    section { padding-top: 52px; padding-bottom: 52px; }
+    .grid { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: 1fr; }
+    .privacy { grid-template-columns: 1fr; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top"><img src="img/icon.png" alt="">Focus for YouTube</a>
+    <a class="btn small" href="#get" data-store>Add to Chrome</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <span class="badge">Chrome extension for YouTube</span>
+      <h1>Hide one thing.<br><em>Or the whole block.</em></h1>
+      <p class="lede">Hide Shorts and distractions, block channels, or <b>allow only the channels you pick</b>. Everything stays in your browser.</p>
+      <div class="cta">
+        <a class="btn" href="#get" data-store>Add to Chrome</a>
+        <a class="btn ghost" href="#features">See what it hides</a>
+      </div>
+      <div class="chips">
+        <span class="chip">Hide Shorts</span>
+        <span class="chip">Allowlist</span>
+        <span class="chip">Blocklist</span>
+        <span class="chip">Presets</span>
+        <span class="chip">Pause for an hour</span>
+        <span class="chip">Black-and-white thumbnails</span>
+      </div>
+    </div>
+    <div class="shot"><img src="img/popup.png" alt="Focus for YouTube settings window with presets and Hide all switches" width="1268" height="926"></div>
+  </div>
+
+  <section id="features">
+    <div class="wrap">
+      <span class="eyebrow">Features</span>
+      <h2>Keep what is useful.<br>Cut the rest.</h2>
+      <p class="sub">Every switch is separate, and pointing at one in the popup shows a picture of exactly what it hides.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Shorts, gone</h3>
+          <p>Removed from feeds, search results, channel pages and the menu. Shorts links open in the regular player.</p>
+          <div class="tags"><span class="tag">One toggle</span><span class="tag">Instant</span></div>
+        </div>
+        <div class="card">
+          <h3>Feed and video page</h3>
+          <p>Hide the home feed, topic chips and Mix playlists. On a video page hide:</p>
+          <ul>
+            <li>recommendations and comments</li>
+            <li>description, like and share buttons</li>
+            <li>end cards, info cards, live chat</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Interface</h3>
+          <p>Hide the subscriptions list, the “Explore” and “More from YouTube” blocks or the whole sidebar. Voice search and promo banners go too. Autoplay is turned off.</p>
+        </div>
+        <div class="card">
+          <h3>Hide all, per block</h3>
+          <p>Each block (Feed and Shorts, Video page, Interface) has a “Hide all” switch that turns the whole block on or off at once.</p>
+        </div>
+        <div class="card">
+          <h3>Presets and pause</h3>
+          <p>Minimal, Study or Maximum in one click. Pause for 15 minutes or an hour, then everything switches back on by itself.</p>
+          <div class="tags"><span class="tag">Minimal</span><span class="tag">Study</span><span class="tag">Maximum</span></div>
+        </div>
+        <div class="card">
+          <h3>Less tempting thumbnails</h3>
+          <p>Black-and-white covers stop the feed from shouting for your attention. The video itself keeps its colour.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <span class="eyebrow">Channels</span>
+      <h2>You choose which<br>channels you see.</h2>
+      <p class="sub">Block the ones you don’t want, or flip to an allowlist and see only the ones you pick. Handy for study and work.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Blocklist</h3>
+          <p>Hide the channels you don’t want. A blocked channel’s page is covered and its video is paused.</p>
+        </div>
+        <div class="card">
+          <h3>Allowlist</h3>
+          <p>See only the channels you pick. Shorts from other channels are hidden too.</p>
+        </div>
+        <div class="card">
+          <h3>Easy to fill</h3>
+          <p>Add a channel by URL, @handle or name, with the “Add to list” button on any video or channel page, or paste a whole list. One click adds all your subscriptions. Search, copy or clear the list any time.</p>
+        </div>
+      </div>
+      <div class="gallery">
+        <figure><img src="img/01-allowlist.jpg" alt="Allowlist: only chosen channels in search results" loading="lazy" width="1280" height="800"></figure>
+        <figure><img src="img/02-shorts-before-after.jpg" alt="Search results before and after hiding Shorts" loading="lazy" width="1280" height="800"></figure>
+        <figure><img src="img/03-settings.jpg" alt="Settings window with Hide all switches" loading="lazy" width="1280" height="800"></figure>
+        <figure><img src="img/04-blocked-and-not-allowed.jpg" alt="Overlays for a blocked channel and a channel that is not on the list" loading="lazy" width="1280" height="800"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap privacy">
+      <div>
+        <span class="eyebrow">Privacy</span>
+        <h2>Private by design.</h2>
+        <p class="sub">Your settings and channel lists are saved in your browser’s extension storage on your own device. Nothing is sent to the developer or anyone else.</p>
+        <p class="cta"><a class="btn ghost" href="https://focus-for-youtube-privacy-kir-goldman.vercel.app">Read the privacy policy</a></p>
+      </div>
+      <ul class="checks">
+        <li>No account</li>
+        <li>No analytics, no ads, no tracking</li>
+        <li>Minimal permissions: browser storage, access to youtube.com, and the active tab only while the popup is open</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <span class="eyebrow">Good to know</span>
+      <h2>Honest notes.</h2>
+      <div class="know">
+        <div><b>YouTube changes its layout often.</b> If something stops working after a YouTube update, write to us and we will fix it.</div>
+        <div><b>Two languages.</b> The interface is available in English and Russian and follows your browser language.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="get">
+    <div class="wrap">
+      <h2>Take your YouTube back.</h2>
+      <p class="sub">Free to install. Two clicks to set up.</p>
+      <div class="cta"><a class="btn" href="#get" data-store>Add to Chrome</a></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <span>Focus for YouTube</span>
+      <nav>
+        <a href="#get" data-store>Chrome Web Store</a>
+        <a href="https://focus-for-youtube-privacy-kir-goldman.vercel.app">Privacy Policy</a>
+        <a href="mailto:kirgoldman1@gmail.com">Contact</a>
+      </nav>
+    </div>
+    <p class="legal">Focus for YouTube is not affiliated with, endorsed by or sponsored by YouTube or Google. YouTube is a trademark of Google LLC.</p>
+  </div>
+</footer>
+
+<script>
+  // Put the Chrome Web Store link here once the listing is published.
+  var STORE_URL = '';
+  if (STORE_URL) document.querySelectorAll('[data-store]').forEach(function (a) { a.href = STORE_URL; a.target = '_blank'; a.rel = 'noopener'; });
+</script>
+</body>
+</html>
