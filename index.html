@@ -107,6 +107,7 @@
     .privacy { grid-template-columns: 1fr; gap: 24px; }
   }
 </style>
+<link rel="stylesheet" href="demo.css">
 </head>
 <body>
 
@@ -125,7 +126,7 @@
       <p class="lede">Hide Shorts and distractions, block channels, or <b>allow only the channels you pick</b>. Everything stays in your browser.</p>
       <div class="cta">
         <a class="btn" href="#get" data-store>Add to Chrome</a>
-        <a class="btn ghost" href="#features">See what it hides</a>
+        <a class="btn ghost" href="#demo">See what it hides</a>
       </div>
       <div class="chips">
         <span class="chip">Hide Shorts</span>
@@ -177,6 +178,41 @@
           <p>Black-and-white covers stop the feed from shouting for your attention. The video itself keeps its colour.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="band" id="demo">
+    <div class="wrap">
+      <span class="eyebrow">Try it</span>
+      <h2>Flip a switch.<br>Watch it disappear.</h2>
+      <p class="sub">This is a mock YouTube page with the same switches as the extension. Click any switch, or press “Play demo” and watch them go one by one.</p>
+      <div class="demo">
+        <div>
+          <div class="tabs" style="margin:0 0 12px">
+            <button class="tab" type="button" data-page-tab="home" aria-selected="true">Home page</button>
+            <button class="tab" type="button" data-page-tab="watch" aria-selected="false">Video page</button>
+          </div>
+          <div class="stage-wrap" id="stageWrap"><div class="stage" id="stage" aria-label="Mock YouTube page"></div></div>
+          <div class="caption" id="demoCaption" aria-live="polite"><b>Point at a switch</b>Its description and the part of the page it hides appear here.</div>
+        </div>
+        <div class="panel" id="demoPanel">
+          <div class="p-head"><b>Focus for YouTube</b><button class="p-play" type="button" id="demoPlay">▶ Play demo</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pictures">
+    <div class="wrap">
+      <span class="eyebrow">Every switch, in a picture</span>
+      <h2>See exactly what<br>each one hides.</h2>
+      <p class="sub">These are the same pictures the extension shows when you point at a switch. The part that goes away is outlined in red.</p>
+      <div class="tabs" role="tablist">
+        <button class="tab" type="button" data-gtab="feed" aria-selected="true">Feed and Shorts</button>
+        <button class="tab" type="button" data-gtab="video" aria-selected="false">Video page</button>
+        <button class="tab" type="button" data-gtab="ui" aria-selected="false">Interface</button>
+      </div>
+      <div class="pics" id="pics"></div>
     </div>
   </section>
 
@@ -258,6 +294,7 @@
   </div>
 </footer>
 
+<script src="demo.js"></script>
 <script>
   // Put the Chrome Web Store link here once the listing is published.
   var STORE_URL = '';
